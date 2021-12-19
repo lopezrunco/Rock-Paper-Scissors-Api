@@ -19,8 +19,11 @@ const app = express()
 // Middlewares
 // -------------------------------------------------------------------------------------------------- //
 
+const checkUserCredentials = require('./middlewares/check-user-credentials')
+
 app.use(cors())
 
+// Esta linea es para entender el JSON que se le envia a la API
 app.use(express.json())
 
 // -------------------------------------------------------------------------------------------------- //
@@ -40,5 +43,5 @@ mongoose.connect(getDbConnectionString(), { useNewUrlParser: true, useUnifiedTop
         // Comienza a escuchar por conexiones
         app.listen(process.env.PORT)
     }).catch(error => {
-        console.error('No se pudo conectar a la base de datos', error)
+        console.error('Could not connect to the database', error)
     })
