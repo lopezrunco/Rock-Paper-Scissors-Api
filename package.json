@@ -2,7 +2,8 @@
   "name": "rock-paper-scissors-api",
   "version": "1.0.0",
   "scripts": {
-    "start": "nodemon src/api.js",
+    "start": "node src/api.js",
+    "dev": "nodemon src/api.js",
     "seed": "node src/commands/seeder.js"
   },
   "dependencies": {
@@ -18,7 +19,7 @@
     "qrcode": "^1.5.0"
   },
   "devDependencies": {
-    "Faker": "^0.7.2",
+    "faker": "^5.5.3",
     "nodemon": "^2.0.15"
   }
 }
