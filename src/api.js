@@ -34,16 +34,22 @@ app.use(express.json())
 const refresh = require('./controllers/auth/refresh')
 const enableMfa = require('./controllers/auth/enable-mfa')
 
+// Usuarios
+const login = require('./controllers/user/login')
+
 // -------------------------------------------------------------------------------------------------- //
 // Definicion de rutas
 // -------------------------------------------------------------------------------------------------- //
 
+// Usuarios
+app.post('/login', login)
+
 // Juegos
-app.post('/games/create', createGame)
-app.get('/games/on-play', getOnPlayGames)
-app.get('/games/on-play/:id', getGameById)
-app.post('/games/play/:id', playGame)
-app.get('/games/history', getGamesHistory)
+// app.post('/games/create', createGame)
+// app.get('/games/on-play', getOnPlayGames)
+// app.get('/games/on-play/:id', getGameById)
+// app.post('/games/play/:id', playGame)
+// app.get('/games/history', getGamesHistory)
 
 // Usa las credenciales importadas para conectar a la base de datos
 mongoose.connect(getDbConnectionString(), { useNewUrlParser: true, useUnifiedTopology: true })
