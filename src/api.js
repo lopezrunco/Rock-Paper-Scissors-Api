@@ -36,6 +36,7 @@ const enableMfa = require('./controllers/auth/enable-mfa')
 
 // Usuarios
 const login = require('./controllers/user/login')
+const register = require('./controllers/user/register')
 
 // -------------------------------------------------------------------------------------------------- //
 // Definicion de rutas
@@ -43,6 +44,7 @@ const login = require('./controllers/user/login')
 
 // Usuarios
 app.post('/login', login)
+app.post('/register', register)
 
 // Juegos
 // app.post('/games/create', createGame)
