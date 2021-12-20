@@ -32,6 +32,7 @@ app.use(express.json())
 
 // Seguridad
 const refresh = require('./controllers/auth/refresh')
+const enableMfa = require('./controllers/auth/enable-mfa')
 
 // -------------------------------------------------------------------------------------------------- //
 // Definicion de rutas
