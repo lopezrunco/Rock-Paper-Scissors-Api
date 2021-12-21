@@ -13,7 +13,7 @@ module.exports = (request, response) => {
             pagination.limit = parseInt(request.query.itemsPerPage)
     }
 
-    // Busca los juegos que no esten completados y que uno de los ids de jugadores coincida con el usuario logueado
+    // Busca los juegos completados donde uno de los ids de jugadores coincida con el usuario logueado
     gameModel
         .find({
             $and: [
@@ -22,10 +22,10 @@ module.exports = (request, response) => {
                         { playerOneId: request.user.id },
                         { playerTwoId: request.user.id }
                     ]
-                }, { completed: false }
+                }, { completed: true }
             ]
         })
-        .select('-playerOneMoves, -playerTwoMoves, -movesWinners,')  // Omision de campos
+        .select('-playerOneMoves, -playerTwoMoves')  // Omision de campos
         .skip(pagination.offset)
         .limit(pagination.limit)
         .then(games => {
