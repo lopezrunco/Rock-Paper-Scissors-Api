@@ -38,6 +38,9 @@ const enableMfa = require('./controllers/auth/enable-mfa')
 const login = require('./controllers/user/login')
 const register = require('./controllers/user/register')
 
+// Juegos
+const createGame = require('./controllers/games/create')
+
 // -------------------------------------------------------------------------------------------------- //
 // Definicion de rutas
 // -------------------------------------------------------------------------------------------------- //
@@ -47,7 +50,7 @@ app.post('/login', login)
 app.post('/register', register)
 
 // Juegos
-// app.post('/games/create', createGame)
+app.post('/games/create', createGame)
 // app.get('/games/on-play', getOnPlayGames)
 // app.get('/games/on-play/:id', getGameById)
 // app.post('/games/play/:id', playGame)
