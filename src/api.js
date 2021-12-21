@@ -41,6 +41,7 @@ const register = require('./controllers/user/register')
 // Juegos
 const createGame = require('./controllers/games/create')
 const getOnPlayGames = require('./controllers/games/get-on-play-games')
+const getGameById = require('./controllers/games/get-by-id')
 
 // -------------------------------------------------------------------------------------------------- //
 // Definicion de rutas
@@ -53,7 +54,7 @@ app.post('/register', register)
 // Juegos
 app.post('/games/create', checkUserCredentials(), createGame)
 app.get('/games/on-play', checkUserCredentials(), getOnPlayGames)
-// app.get('/games/on-play/:id', getGameById)
+app.get('/games/on-play/:id', checkUserCredentials(), getGameById)
 // app.post('/games/play/:id', playGame)
 // app.get('/games/history', getGamesHistory)
 
