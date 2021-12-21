@@ -16,8 +16,8 @@ const games = []
 // Contrasena que se utilizara en los usuarios
 const userPassword = bcrypt.hashSync('super_mega_secret', 2)
 // Cantidad de usuarios a generar
-const numberOfUsers = 5
-const numberOfGames = 20
+const numberOfUsers = 10
+const numberOfGames = 5
 
 // Generacion de los usuarios usando faker.js
 for (let iterationIndex = 0; iterationIndex < numberOfUsers; iterationIndex++) {
@@ -32,14 +32,35 @@ for (let iterationIndex = 0; iterationIndex < numberOfUsers; iterationIndex++) {
 
 // Generacion de los juegos usando faker.js
 for (let gameIterationIndex = 0; gameIterationIndex < numberOfGames; gameIterationIndex++) {
+
+    // Generate random number arrays
+    function generateRandomNumberArray() {
+        const randomNumberArray = []
+        for (let index = 0; index < 3; index++) {
+            const element = faker.datatype.number({'min': 1, 'max': 3})
+            randomNumberArray.push(element)
+        }
+        return randomNumberArray
+    }
+
+    // Generate random ids arrays
+    function generateRandomIdArray() {
+        const randomIdArray = []
+        for (let index = 0; index < 3; index++) {
+            const element = faker.datatype.hexaDecimal(10)
+            randomIdArray.push(element)
+        }
+        return randomIdArray
+    }
+
     games.push({
-        playerOneId: faker.datatype.hexaDecimal(),
-        playerTwoId: faker.datatype.hexaDecimal(),
-        playerOneMoves: faker.datatype.array(),
-        playerTwoMoves: faker.datatype.array(),
-        movesWinners: faker.datatype.array(),
-        completed: false,
-        winnerId: faker.datatype.hexaDecimal()
+        playerOneId: faker.datatype.hexaDecimal(10),
+        playerTwoId: faker.datatype.hexaDecimal(10),
+        playerOneMoves: generateRandomNumberArray(),
+        playerTwoMoves: generateRandomNumberArray(),
+        movesWinners: generateRandomIdArray(),
+        completed: true,
+        winnerId: faker.datatype.hexaDecimal(10)
     })
 }
 

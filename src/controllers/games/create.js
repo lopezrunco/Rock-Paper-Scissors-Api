@@ -21,11 +21,11 @@ module.exports = (request, response) => {
             playerTwoId: game.playerTwoId
         }).then(game => {
             response.status(200).json({
-                message: 'Juego creado'
+                message: 'New game created'
             })
         }).catch(error => {
             response.status(500).json({
-                message: 'No se pudo crear el juego'
+                message: 'Could not create the new game'
             })
         })
     } else {
