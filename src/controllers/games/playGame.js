@@ -1,13 +1,8 @@
 const { gameModel } = require('../../models/game')
 
 module.exports = (request, response) => {
-    const choices = [
-        { "id": 1, "name": "rock", "losesTo": 2 },
-        { "id": 2, "name": "paper", "losesTo": 3 },
-        { "id": 3, "name": "scissors", "losesTo": 1 }
-    ]
     const actualPlayer = request.user.id
-    const playerChoice = request.body.choice
+    const playerChoice = request.body
 
     gameModel
         .findOne({ _id: request.params.id })
@@ -21,6 +16,21 @@ module.exports = (request, response) => {
                 game.playerTwoMoves.push(playerTwoMove)
             }
             game.save()
+
+            // Definir ganador
+            console.log('Definiendo ganador -------------------------------------------------------------')
+            console.log('playerOneMoves', game.playerOneMoves)
+            console.log('playerTwoMoves', game.playerTwoMoves)
+
+            for (let getWinnerIndex = 0; getWinnerIndex < 3; getWinnerIndex++) {
+                if (game.playerOneMoves[getWinnerIndex].losesTo === game.playerTwoMoves[getWinnerIndex].choice) {
+                    console.log('Usuario one pierde --------------------------------------')
+                } else if (game.playerTwoMoves[getWinnerIndex].losesTo === game.playerOneMoves[getWinnerIndex].choice) {
+                    console.log('Usuario one gana ----------------------------------------')
+                } else if (game.playerOneMoves[getWinnerIndex].choice === game.playerOneMoves[getWinnerIndex].choice) {
+                    console.log('Empate ----------------------------------------')
+                }
+            }
 
         }).then(() => {
             response.status(200).json({

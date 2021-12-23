@@ -24,3 +24,11 @@ npm run seed
 # Iniciar API
 npm start
 ```
+
+## Lógica base para definir ganador
+Expandible añadiendo mas elementos al array, respetando los campos "id" y "losesTo"
+```bash
+[{ "id": 1, "name": "rock", "losesTo": 2 },
+{ "id": 2, "name": "paper", "losesTo": 3 },
+{ "id": 3, "name": "scissors", "losesTo": 1 }]
+```
