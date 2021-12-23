@@ -43,6 +43,7 @@ const createGame = require('./controllers/games/create')
 const getOnPlayGames = require('./controllers/games/get-on-play-games')
 const getGameById = require('./controllers/games/get-by-id')
 const getGameHistory = require('./controllers/games/get-game-history')
+const playGame = require('./controllers/games/playGame')
 
 // -------------------------------------------------------------------------------------------------- //
 // Definicion de rutas
@@ -57,7 +58,7 @@ app.post('/games/create', checkUserCredentials(), createGame)
 app.get('/games/on-play', checkUserCredentials(), getOnPlayGames)
 app.get('/games/on-play/:id', checkUserCredentials(), getGameById)
 app.get('/games/history', checkUserCredentials(), getGameHistory)
-// app.post('/games/play/:id', playGame)
+app.post('/games/play/:id', checkUserCredentials(), playGame)
 
 // Usa las credenciales importadas para conectar a la base de datos
 mongoose.connect(getDbConnectionString(), { useNewUrlParser: true, useUnifiedTopology: true })
