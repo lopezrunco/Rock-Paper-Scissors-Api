@@ -16,8 +16,8 @@ const games = []
 // Contrasena que se utilizara en los usuarios
 const userPassword = bcrypt.hashSync('super_mega_secret', 2)
 // Cantidad de usuarios a generar
-const numberOfUsers = 10
-const numberOfGames = 5
+const numberOfUsers = 2
+const numberOfGames = 2
 
 // Generacion de los usuarios usando faker.js
 for (let iterationIndex = 0; iterationIndex < numberOfUsers; iterationIndex++) {
@@ -56,8 +56,10 @@ for (let gameIterationIndex = 0; gameIterationIndex < numberOfGames; gameIterati
     games.push({
         playerOneId: faker.datatype.hexaDecimal(10),
         playerTwoId: faker.datatype.hexaDecimal(10),
-        playerOneMoves: generateRandomNumberArray(),
-        playerTwoMoves: generateRandomNumberArray(),
+        // playerOneMoves: generateRandomNumberArray(),
+        // playerTwoMoves: generateRandomNumberArray(),
+        playerOneMoves: [],
+        playerTwoMoves: [],
         movesWinners: generateRandomIdArray(),
         completed: true,
         winnerId: faker.datatype.hexaDecimal(10)

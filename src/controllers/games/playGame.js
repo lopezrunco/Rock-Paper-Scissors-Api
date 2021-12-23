@@ -7,24 +7,59 @@ module.exports = (request, response) => {
         { "id": 3, "name": "scissors", "losesTo": 1 }
     ]
     const actualPlayer = request.user.id
-    const actualPlayerChoice = request.body.choice
+    const playerChoice = request.body.choice
 
-    console.log(`Usuario: ${actualPlayer}. Eleccion: ${actualPlayerChoice}`)
+    console.log('---------------------------------------------------------------------')
+    console.log(`Usuario: ${actualPlayer}. Eleccion: ${playerChoice}. Juego: ${request.params.id}`)
+    console.log('---------------------------------------------------------------------')
 
     gameModel
         .findOne({ _id: request.params.id })
         .then(game => {
+
             // Matchea que usuario esta logueado y empuja la eleccion al array de jugadas correspondiente
             if (actualPlayer === game.playerOneId) {
-                game.playerOneMoves.push(actualPlayerChoice)
+                const playerOneMove = playerChoice
+                console.log('playerOneMove', playerOneMove)
+                console.log('game.playerOneMoves', game.playerOneMoves)
             } else {
-                game.playerTwoMoves.push(actualPlayerChoice)
+                const playerTwoMove = playerChoice
+                console.log('playerTwoMove', playerTwoMove)
+                console.log('game.playerTwoMoves', game.playerTwoMoves)
+
+                
+
+                // game.set([request.body.choice])
+                // game.save()
             }
-        }).then(game => {
-            console.log('Definir ganador')
-            // Define el ganador de la jugada
+
+            // game.update({
+            //     // $push: {playerTwoMoves: playerTwoMove}
+            //     completed: false
+            // })
+
+            game.set(completed = false)
+            game.save()
+            
 
 
+            // game.playerTwoMoves.set(playerTwoMove)
+
+            // game.save().then(() => {
+            //     response.status(200).end() 
+            // })
+
+            // game.playerTwoMoves.push(1)
+            // game.save()
+            // console.log('game.playerTwoMoves', game.playerTwoMoves)
+
+        }).then(() => {
+
+            response.status(200).json({
+                message: 'Listo!'
+            })
+
+            // Definir el ganador de la jugada
 
             // Chequeo de que usuario es cual
             // if (request.user.id === game.playerOneId) {
@@ -59,7 +94,6 @@ module.exports = (request, response) => {
             //     console.log('Draw')
             // }
 
-
             // Dependiendo del ganador, empuja el id del elemento jugado en el array de jugadas
             // En ambos casos empuja el id del ganador en el array de ganadores
             // if (actualPlayer = playerOneId) {
@@ -79,6 +113,7 @@ module.exports = (request, response) => {
             //     game.winnerId = winner
             //     game.completed = true
             // }
+
         }).catch(error => {
             console.error(error)
             response.status(500).json({
