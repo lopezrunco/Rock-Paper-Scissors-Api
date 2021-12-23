@@ -9,40 +9,27 @@ module.exports = (request, response) => {
     const actualPlayer = request.user.id
     const playerChoice = request.body.choice
 
-    console.log('---------------------------------------------------------------------')
-    console.log(`Usuario: ${actualPlayer}. Eleccion: ${playerChoice}. Juego: ${request.params.id}`)
-    console.log('---------------------------------------------------------------------')
-
     gameModel
-        .findByIdAndUpdate({_id: request.params.id},
-            { $push: { "playerTwoMoves": request.body.choice } } 
-        )
+        .findOne({ _id: request.params.id })
+        .then(game => {
+            // Matchea que usuario esta logueado y de acuerdo a eso empuja la juagada al array de jugadas
+            if (actualPlayer === game.playerOneId) {
+                const playerOneMove = playerChoice
+                game.playerOneMoves.push(playerOneMove)
+            } else {
+                const playerTwoMove = playerChoice
+                game.playerTwoMoves.push(playerTwoMove)
+            }
+            game.save()
 
-
-        // .findOne({ _id: request.params.id })
-        // .then(game => {
-
-            
-
-        //     // Matchea que usuario esta logueado y empuja la eleccion al array de jugadas correspondiente
-        //     // if (actualPlayer === game.playerOneId) {
-        //     //     const playerOneMove = playerChoice
-        //     //     console.log('playerOneMove', playerOneMove)
-        //     //     console.log('game.playerOneMoves', game.playerOneMoves)
-        //     // } else {
-        //     //     const playerTwoMove = playerChoice
-        //     //     console.log('playerTwoMove', playerTwoMove)
-        //     //     console.log('game.playerTwoMoves', game.playerTwoMoves)
-        //     // }
-        // })
-        .then(() => {
+        }).then(() => {
             response.status(200).json({
-                message: 'Listo!'
+                message: 'Played!'
             })
         }).catch(error => {
             console.error(error)
             response.status(500).json({
-                message: 'Error al intentar modificar el juego'
+                message: 'Error trying to update the game'
             })
         })
 }

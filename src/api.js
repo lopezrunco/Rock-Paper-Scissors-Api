@@ -58,7 +58,7 @@ app.post('/games/create', checkUserCredentials(), createGame)
 app.get('/games/on-play', checkUserCredentials(), getOnPlayGames)
 app.get('/games/on-play/:id', checkUserCredentials(), getGameById)
 app.get('/games/history', checkUserCredentials(), getGameHistory)
-app.put('/games/play/:id', checkUserCredentials(), playGame)
+app.post('/games/play/:id', checkUserCredentials(), playGame)
 
 // Usa las credenciales importadas para conectar a la base de datos
 mongoose.connect(getDbConnectionString(), { useNewUrlParser: true, useUnifiedTopology: true })
