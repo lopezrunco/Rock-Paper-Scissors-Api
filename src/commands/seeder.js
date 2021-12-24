@@ -61,8 +61,7 @@ for (let gameIterationIndex = 0; gameIterationIndex < numberOfGames; gameIterati
         playerOneMoves: [],
         playerTwoMoves: [],
         movesWinners: generateRandomIdArray(),
-        completed: true,
-        winnerId: faker.datatype.hexaDecimal(10)
+        completed: true
     })
 }
 
