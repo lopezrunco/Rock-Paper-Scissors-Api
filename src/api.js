@@ -37,6 +37,7 @@ const enableMfa = require('./controllers/auth/enable-mfa')
 // Usuarios
 const login = require('./controllers/user/login')
 const register = require('./controllers/user/register')
+const getAllUsers = require('./controllers/user/get-all')
 
 // Juegos
 const createGame = require('./controllers/games/create')
@@ -55,6 +56,7 @@ app.post('/login', login)
 app.post('/register', register)
 
 // Juegos
+app.get('/users', checkUserCredentials(), getAllUsers)
 app.post('/games/create', checkUserCredentials(), createGame)
 app.get('/games/on-play', checkUserCredentials(), getOnPlayGames)
 app.get('/games/on-play/:id', checkUserCredentials(), getGameById)
