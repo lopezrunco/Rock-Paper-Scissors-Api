@@ -51,6 +51,10 @@ const result = require('./controllers/games/result')
 // Definicion de rutas
 // -------------------------------------------------------------------------------------------------- //
 
+// Seguridad
+app.get('/auth/refresh', checkUserCredentials('REFRESH'), refresh)
+app.get('/auth/mfa', checkUserCredentials(), enableMfa) // Retorna el QR para mostrar al usuario
+
 // Usuarios
 app.post('/login', login)
 app.post('/register', register)
