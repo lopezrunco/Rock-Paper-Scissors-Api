@@ -5,7 +5,7 @@ module.exports = (request, response) => {
     // Definicion de una paginacion por defecto
     const pagination = {
         offset: 0,
-        limit: 10
+        limit: 9
     }
     // Si vienen valores de paginacion se asignan, si no, se usan los valores por defecto
     if (request.query.page && request.query.itemsPerPage) {

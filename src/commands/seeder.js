@@ -14,10 +14,10 @@ const { gameModel } = require('../models/game')
 const users = []
 const games = []
 // Contrasena que se utilizara en los usuarios
-const userPassword = bcrypt.hashSync('super_mega_secret', 2)
+const userPassword = bcrypt.hashSync('supermegasecret', 2)
 // Cantidad de usuarios a generar
-const numberOfUsers = 2
-const numberOfGames = 2
+const numberOfUsers = 10
+const numberOfGames = 1
 
 // Generacion de los usuarios usando faker.js
 for (let iterationIndex = 0; iterationIndex < numberOfUsers; iterationIndex++) {
@@ -55,7 +55,9 @@ for (let gameIterationIndex = 0; gameIterationIndex < numberOfGames; gameIterati
 
     games.push({
         playerOneId: faker.datatype.hexaDecimal(10),
+        playerOneNickname: faker.internet.userName(),
         playerTwoId: faker.datatype.hexaDecimal(10),
+        playerTwoNickname: faker.internet.userName(),
         // playerOneMoves: generateRandomNumberArray(),
         // playerTwoMoves: generateRandomNumberArray(),
         playerOneMoves: [],

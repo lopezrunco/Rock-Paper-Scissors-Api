@@ -6,7 +6,17 @@ const gameSchema = new Schema({
         required: true,
         trim: true
     },
+    playerOneNickname: {
+        type: String,
+        required: true,
+        trim: true
+    },
     playerTwoId: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    playerTwoNickname: {
         type: String,
         required: true,
         trim: true

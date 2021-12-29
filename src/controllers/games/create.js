@@ -8,7 +8,13 @@ module.exports = (request, response) => {
         playerOneId: Joi.string()
             .alphanum()
             .required(),
+        playerOneNickname: Joi.string()
+            .alphanum()
+            .required(),
         playerTwoId: Joi.string()
+            .alphanum()
+            .required(),
+        playerTwoNickname: Joi.string()
             .alphanum()
             .required(),
     })
@@ -18,7 +24,9 @@ module.exports = (request, response) => {
     if (!validationResult.error) {
         gameModel.create({
             playerOneId: game.playerOneId,
-            playerTwoId: game.playerTwoId
+            playerOneNickname: game.playerOneNickname,
+            playerTwoId: game.playerTwoId,
+            playerTwoNickname: game.playerTwoNickname
         }).then(game => {
             response.status(200).json({
                 message: 'New game created'
