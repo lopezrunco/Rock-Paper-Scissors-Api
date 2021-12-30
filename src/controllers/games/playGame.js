@@ -2,7 +2,7 @@ const { gameModel } = require('../../models/game')
 
 module.exports = (request, response) => {
     const actualPlayer = request.user.id
-    const playerChoice = request.body
+    const playerChoice = request.body.choice
 
     gameModel
         .findOne({ _id: request.params.id })
