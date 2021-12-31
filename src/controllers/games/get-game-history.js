@@ -25,7 +25,7 @@ module.exports = (request, response) => {
                 }, { completed: true }
             ]
         })
-        .select('-playerOneMoves, -playerTwoMoves')  // Omision de campos
+        .select('-completed')  // Omision de campos
         .skip(pagination.offset)
         .limit(pagination.limit)
         .then(games => {

@@ -10,7 +10,7 @@ module.exports = (request, response) => {
             let choicePlayerTwo
 
             // Define el ganador en cada jugada y empuja el id del ganador al array de ganadores
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i <= 2; i++) {
 
                 // En cada jugador, setea un objeto dependiendo de la jugada
                 if (game.playerOneMoves[i] === 1) {
@@ -44,9 +44,9 @@ module.exports = (request, response) => {
                     console.log('Draw')
                 }
 
-                // Si el juego ya tiene 3 ganadores, significa que se jugaron tres partidas.
+                // Si los jugadores ya jugaron 3 veces, significa que el juego termino.
                 // Pasa el completed a true para que en la UI no permita continuar con dicho juego
-                if (game.movesWinners.length >= 3) {
+                if (game.playerOneMoves.length >= 3 && game.playerTwoMoves.length >= 3) {
                     game.completed = true
                 }
             }
