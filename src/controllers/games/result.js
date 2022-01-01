@@ -4,7 +4,7 @@ module.exports = (request, response) => {
     gameModel
         .findOne({ _id: request.params.id })
         .then(game => {
-            
+
             game.movesWinners = []  // Limpia el array de ganadores para que no se acumulen los push con cada peticion
             let choicePlayerOne
             let choicePlayerTwo
@@ -15,33 +15,30 @@ module.exports = (request, response) => {
                 // En cada jugador, setea un objeto dependiendo de la jugada
                 if (game.playerOneMoves[i] === 1) {
                     choicePlayerOne = { id: 1, name: 'rock', losesTo: 2 }
-                    console.log('choicePlayerOne', choicePlayerOne)
                 } else if (game.playerOneMoves[i] === 2) {
                     choicePlayerOne = { id: 2, name: 'paper', losesTo: 3 }
-                    console.log('choicePlayerOne', choicePlayerOne)
                 } else if (game.playerOneMoves[i] === 3) {
                     choicePlayerOne = { id: 3, name: 'scissors', losesTo: 1 }
-                    console.log('choicePlayerOne', choicePlayerOne)
                 }
                 if (game.playerTwoMoves[i] === 1) {
                     choicePlayerTwo = { id: 1, name: 'rock', losesTo: 2 }
-                    console.log('choicePlayerTwo', choicePlayerTwo)
                 } else if (game.playerTwoMoves[i] === 2) {
                     choicePlayerTwo = { id: 2, name: 'paper', losesTo: 3 }
-                    console.log('choicePlayerTwo', choicePlayerTwo)
                 } else if (game.playerTwoMoves[i] === 3) {
                     choicePlayerTwo = { id: 3, name: 'scissors', losesTo: 1 }
-                    console.log('choicePlayerTwo', choicePlayerTwo)
                 }
 
-                if (choicePlayerOne.losesTo === choicePlayerTwo.id) {
-                    console.log('player 2 gana')
-                    game.movesWinners.push(game.playerTwoId)
-                } else if (choicePlayerTwo.losesTo === choicePlayerOne.id) {
-                    console.log('player 1 gana')
-                    game.movesWinners.push(game.playerOneId)
-                } else if (choicePlayerOne.choice === choicePlayerOne.id) {
-                    console.log('Draw')
+                // Pushes al array de ganadores
+                if (choicePlayerOne && choicePlayerTwo) {
+                    if (choicePlayerOne.losesTo === choicePlayerTwo.id) {
+                        game.movesWinners.push(game.playerTwoId)
+                    } else if (choicePlayerTwo.losesTo === choicePlayerOne.id) {
+                        game.movesWinners.push(game.playerOneId)
+                    } else if (choicePlayerOne.choice === choicePlayerOne.id) {
+                        console.log('Draw')
+                    } else {
+                        console.log('The two players must play at less one time')
+                    }
                 }
 
                 // Si los jugadores ya jugaron 3 veces, significa que el juego termino.
@@ -51,7 +48,7 @@ module.exports = (request, response) => {
                 }
             }
             game.save()
-            
+
             response.status(200).json({
                 message: 'Game results:',
                 game
