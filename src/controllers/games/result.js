@@ -28,17 +28,15 @@ module.exports = (request, response) => {
                     choicePlayerTwo = { id: 3, name: 'scissors', losesTo: 1 }
                 }
 
-                // Pushes al array de ganadores
+                // Pushes al array de ganadores, si hay empate, empuja 0
                 if (choicePlayerOne && choicePlayerTwo) {
                     if (choicePlayerOne.losesTo === choicePlayerTwo.id) {
                         game.movesWinners.push(game.playerTwoId)
                     } else if (choicePlayerTwo.losesTo === choicePlayerOne.id) {
                         game.movesWinners.push(game.playerOneId)
-                    } else if (choicePlayerOne.choice === choicePlayerOne.id) {
-                        console.log('Draw')
-                    } else {
-                        console.log('The two players must play at less one time')
-                    }
+                    } else if (choicePlayerOne.id === choicePlayerTwo.id) {
+                        game.movesWinners.push(0)
+                    } 
                 }
 
                 // Si los jugadores ya jugaron 3 veces, significa que el juego termino.
