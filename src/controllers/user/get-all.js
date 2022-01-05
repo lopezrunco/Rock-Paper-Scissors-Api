@@ -11,7 +11,11 @@ module.exports = (request, response) => {
     }
 
     userModel
-        .find()     // Obtiene toda la lista de usuarios sin filtro
+        .find({
+            $and: [
+                { _id: {$ne: request.user.id} } // Obtiene todos los usuarios menos el que esta logueado
+            ]
+        })
         .select('-email -password -mfaEnabled -mfaSecret')  // Omision de campos
         .skip(pagination.offset)
         .limit(pagination.limit)
