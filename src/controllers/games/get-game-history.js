@@ -29,23 +29,9 @@ module.exports = (request, response) => {
         .skip(pagination.offset)
         .limit(pagination.limit)
         .then(games => {
-            gameModel
-                .count()    // Cuenta la coleccion entera
-                .then(count => {
-                    const meta = {
-                        count
-                    }
-                    // Responde con los juegos y el numero de juegos
-                    response.status(200).json({
-                        meta,
-                        games
-                    })
-                }).catch(error => {
-                    console.error(error)
-                    response.status(500).json({
-                        message: 'Error trying to list the games'
-                    })
-                })
+            response.status(200).json({
+                games
+            })
         }).catch(error => {
             console.error(error)
             response.status(500).json({

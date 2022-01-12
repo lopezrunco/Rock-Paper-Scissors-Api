@@ -17,7 +17,7 @@ const games = []
 const userPassword = bcrypt.hashSync('supermegasecret', 2)
 // Cantidad de usuarios a generar
 const numberOfUsers = 10
-const numberOfGames = 1
+const numberOfGames = 20
 
 // Generacion de los usuarios usando faker.js
 for (let iterationIndex = 0; iterationIndex < numberOfUsers; iterationIndex++) {
