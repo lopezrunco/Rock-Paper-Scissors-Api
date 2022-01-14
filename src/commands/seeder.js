@@ -21,8 +21,12 @@ const numberOfGames = 20
 
 // Generacion de los usuarios usando faker.js
 for (let iterationIndex = 0; iterationIndex < numberOfUsers; iterationIndex++) {
+
+    // Expresion regular para limpiar caracteres no alfanumericos en el nickname
+    const regex = /([!?@#.$%^&*,_-])/ig;
+
     users.push({
-        nickname: faker.internet.userName(),
+        nickname: faker.internet.userName().replaceAll(regex, ''),
         email: faker.internet.email(),
         password: userPassword,
         mfaEnabled: false,
