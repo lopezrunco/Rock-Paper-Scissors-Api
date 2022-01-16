@@ -11,10 +11,13 @@ module.exports = (request, response) => {
     }
 
     userModel
-        .find({
-            $and: [
-                { _id: {$ne: request.user.id} } // Obtiene todos los usuarios menos el que esta logueado
-            ]
+        .find({ _id: {$ne: request.user.id} })  // Obtiene todos los usuarios menos el que esta logueado
+        .populate({
+            path: 'games',                      // Buscar en la coleccion de juegos,
+            match: { 
+                playerOneId: request.user.id,   // en donde el jugador 1 es el usuario logueado y
+                completed: false                // en donde el juego esta sin terminar
+            }
         })
         .select('-email -password -mfaEnabled -mfaSecret')  // Omision de campos
         .skip(pagination.offset)
