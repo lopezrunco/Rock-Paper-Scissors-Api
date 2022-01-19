@@ -2,15 +2,16 @@ const { userModel } = require("../../models/user")
 const { gameModel } = require('../../models/game')
 
 module.exports = (request, response) => {
-    // const pagination = {
-    //     offset: 0,
-    //     limit: 12
-    // }
-    // if (request.query.page && request.query.itemsPerPage) {
-    //     pagination.offset = (request.query.page - 1) * request.query.itemsPerPage,
-    //         pagination.limit = parseInt(request.query.itemsPerPage)
-    // }
+    const pagination = {
+        offset: 0,
+        limit: 30
+    }
+    if (request.query.page && request.query.itemsPerPage) {
+        pagination.offset = (request.query.page - 1) * request.query.itemsPerPage,
+            pagination.limit = parseInt(request.query.itemsPerPage)
+    }
 
+    // Selecciona los juegos sin completar en los que participa el usuario logueado
     gameModel
         .find({
             $and: [
@@ -25,56 +26,33 @@ module.exports = (request, response) => {
         .select('playerOneId playerTwoId')
         .then(games => {
 
+            // Mapea el array de juegos obtenidos y empuja los ids de los jugadores a un nuevo array
             let idsObtained = []
             games.map((game, index) => {
                 idsObtained.push(games[index].playerOneId)
                 idsObtained.push(games[index].playerTwoId)
             })
 
-
+            // Obtiene los usuarios que no incluyen los ids del array
             userModel
-                // .find({ _id: { $nin: [games.playerOneId, games.playerTwoId, '61e7f3a359b3467a62e217b2'] } })
                 .find({ _id: { $nin: idsObtained } })
-                .select('nickname')
+                .select('nickname id')
+                .skip(pagination.offset)
+                .limit(pagination.limit)
                 .then(users => {
-                    response.status(20git branch
-                        0).json({
+                    response.status(200).json({
                         users
                     })
+                }).catch(error => {
+                    console.error(error)
+                    response.status(500).json({
+                        message: 'Error trying to list the users'
+                    })
                 })
+        }).catch(error => {
+            console.error(error)
+            response.status(500).json({
+                message: 'Error trying to list the users'
+            })
         })
-
-    // userModel
-    //     .find({
-    //         $and: [
-    //             { _id: {$ne: request.user.id} } // Obtiene todos los usuarios menos el que esta logueado
-    //         ]
-    //     })
-    //     .select('-email -password -mfaEnabled -mfaSecret')  // Omision de campos
-    //     .skip(pagination.offset)
-    //     .limit(pagination.limit)
-    //     .then(users => {
-    //         userModel
-    //             .count()
-    //             .then(count => {
-    //                 const meta = {
-    //                     count
-    //                 }
-    //                 // Responde con los usuarios y el numero de usuarios
-    //                 response.status(200).json({
-    //                     meta,
-    //                     users
-    //                 })
-    //             }).catch(error => {
-    //                 console.error(error)
-    //                 response.status(500).json({
-    //                     message: 'Error trying to list the users'
-    //                 })
-    //             })
-    //     }).catch(error => {
-    //         console.error(error)
-    //         response.status(500).json({
-    //             message: 'Error trying to list the users'
-    //         })
-    //     })
 }
