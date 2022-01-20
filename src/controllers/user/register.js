@@ -46,6 +46,9 @@ module.exports = (request, response) => {
             delete userWithoutPasswords.password
             delete userWithoutPasswords.mfaSecret
 
+            userWithoutPasswords.id = userWithoutPasswords._id
+            delete userWithoutPasswords._id
+
             // Agrega token y refresh token al usuario
             userWithoutPasswords.token = createToken(user, CONSUMER_TOKEN_TYPE, '30m')
             userWithoutPasswords.refreshToken = createToken(user, REFRESH_TOKEN_TYPE, '3d')
