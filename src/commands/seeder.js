@@ -26,7 +26,7 @@ for (let iterationIndex = 0; iterationIndex < numberOfUsers; iterationIndex++) {
     const regex = /([!?@#.$%^&*,_-])/ig;
 
     users.push({
-        nickname: faker.internet.userName().replaceAll(regex, ''),
+        nickname: faker.internet.userName(12).replaceAll(regex, ''),
         email: faker.internet.email(),
         password: userPassword,
         mfaEnabled: false,

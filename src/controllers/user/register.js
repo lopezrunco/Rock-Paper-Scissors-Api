@@ -12,6 +12,8 @@ module.exports = (request, response) => {
     const schema = Joi.object({
         nickname: Joi.string()
             .alphanum()
+            .min(2)
+            .max(12)
             .required(),
         email: Joi.string()
             .email()
