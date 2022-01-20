@@ -26,8 +26,8 @@ module.exports = (request, response) => {
         .select('playerOneId playerTwoId')
         .then(games => {
 
-            // Mapea el array de juegos obtenidos y empuja los ids de los jugadores a un nuevo array
-            let idsObtained = []
+            // Mapea el array de juegos obtenidos y empuja los ids de los jugadores a un nuevo array en donde ya esta el usuario logueado
+            let idsObtained = [request.user.id]
             games.map((game, index) => {
                 idsObtained.push(games[index].playerOneId)
                 idsObtained.push(games[index].playerTwoId)
