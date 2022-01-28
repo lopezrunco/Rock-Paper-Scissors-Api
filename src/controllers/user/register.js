@@ -38,6 +38,8 @@ module.exports = (request, response) => {
             nickname: user.nickname,
             email: user.email,
             password: user.password,
+            mfaEnabled: false,
+            mfaSecret: ''
 
         }).then(user => {
 
@@ -46,6 +48,7 @@ module.exports = (request, response) => {
 
             // Se borran los datos que no se mostraran en la respuesta
             delete userWithoutPasswords.password
+            delete userWithoutPasswords.mfaEnabled
             delete userWithoutPasswords.mfaSecret
 
             userWithoutPasswords.id = userWithoutPasswords._id
